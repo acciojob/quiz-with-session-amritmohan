@@ -15,9 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.getElementById("submit");
     const scoreDisplay = document.getElementById("score");
     
-    const savedProgress = JSON.parse(sessionStorage.getItem("progress")) || {};
+    let savedProgress = JSON.parse(sessionStorage.getItem("progress")) || {};
     
     function renderQuestions() {
+        questionsElement.innerHTML = ""; // Clear existing questions
         questions.forEach((q, index) => {
             const questionDiv = document.createElement("div");
             questionDiv.innerHTML = `<p>${q.question}</p>`;
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.value = choice;
 
                 if (savedProgress[index] === choice) {
-                    input.checked = true;
+                    setTimeout(() => { input.checked = true; }, 0); // Ensures selection restoration
                 }
 
                 input.addEventListener("change", () => {
