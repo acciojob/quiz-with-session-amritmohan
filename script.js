@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.name = `question-${index}`;
                 input.value = choice;
 
-                // Ensure no radio buttons are pre-selected unless stored in sessionStorage
+                // Ensure no radio buttons are pre-checked unless stored in sessionStorage
                 if (savedProgress[index] === choice) {
-                    setTimeout(() => { input.checked = true; }, 10); // Allow DOM update
+                    input.setAttribute("checked", "true");
                 }
 
                 input.addEventListener("change", () => {
@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("score", score);
     });
 
+    // Ensure score is shown after reload
     const savedScore = localStorage.getItem("score");
     if (savedScore !== null) {
         scoreDisplay.textContent = `Your last score was ${savedScore} out of 5.`;
