@@ -14,11 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const questionsElement = document.getElementById("questions");
     const submitButton = document.getElementById("submit");
     const scoreDisplay = document.getElementById("score");
-    
+
     let savedProgress = JSON.parse(sessionStorage.getItem("progress")) || {};
-    
+
     function renderQuestions() {
-        questionsElement.innerHTML = ""; // Clear existing questions
+        questionsElement.innerHTML = ""; // Clear previous questions
+
         questions.forEach((q, index) => {
             const questionDiv = document.createElement("div");
             questionDiv.innerHTML = `<p>${q.question}</p>`;
@@ -30,8 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 input.name = `question-${index}`;
                 input.value = choice;
 
+                // Ensure no radio buttons are pre-selected unless stored in sessionStorage
                 if (savedProgress[index] === choice) {
-                    setTimeout(() => { input.checked = true; }, 0); // Ensures selection restoration
+                    setTimeout(() => { input.checked = true; }, 10); // Allow DOM update
                 }
 
                 input.addEventListener("change", () => {
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             questionsElement.appendChild(questionDiv);
         });
     }
-    
+
     renderQuestions();
 
     submitButton.addEventListener("click", () => {
